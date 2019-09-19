@@ -227,6 +227,12 @@ void NAME_MANGLE(species_densities)(double* const rhoi)
 }
 
 //==============================================================================
+void NAME_MANGLE(equilibrate)(double* T, double* P, double* X = NULL)
+{
+	p_mix->equilibrate(*T, *P, X);
+}
+
+//==============================================================================
 void NAME_MANGLE(equilibrium_composition)(double* T, double* P, double* X)
 {
     p_mix->equilibriumComposition(*T, *P, X);
@@ -287,6 +293,18 @@ double NAME_MANGLE(mixture_frozen_cv_mass)()
 }
 
 //==============================================================================
+double NAME_MANGLE(mixture_equilibrium_cp_mass)()
+{
+    return p_mix->mixtureEquilibriumCpMass();
+}
+
+//==============================================================================
+double NAME_MANGLE(mixture_equilibrium_cv_mass)()
+{
+    return p_mix->mixtureEquilibriumCvMass();
+}
+
+//==============================================================================
 double NAME_MANGLE(mixture_frozen_gamma)()
 {
     return p_mix->mixtureFrozenGamma();
@@ -296,6 +314,18 @@ double NAME_MANGLE(mixture_frozen_gamma)()
 double NAME_MANGLE(mixture_frozen_sound_speed)()
 {
     return p_mix->frozenSoundSpeed();
+}
+
+//==============================================================================
+double NAME_MANGLE(mixture_equilibrium_gamma)()
+{
+    return p_mix->mixtureEquilibriumGamma();
+}
+
+//==============================================================================
+double NAME_MANGLE(mixture_equilibrium_sound_speed)()
+{
+    return p_mix->equilibriumSoundSpeed();
 }
 
 //==============================================================================
@@ -317,6 +347,13 @@ void NAME_MANGLE(species_s_mass)(double *const s)
     for (int i = 0; i < p_mix->nSpecies(); ++i)
         s[i] *= Mutation::RU / p_mix->speciesMw(i);
 }
+
+//==============================================================================
+double NAME_MANGLE(mixture_h_minus_h0_mass)()
+{
+    return p_mix->mixtureHMinusH0Mass();
+}
+
 
 //==============================================================================
 double NAME_MANGLE(mixture_h_mass)()
@@ -355,9 +392,15 @@ double NAME_MANGLE(viscosity)()
 }
 
 //==============================================================================
-void NAME_MANGLE(frozen_thermal_conductivity)(double* const lambda)
+void NAME_MANGLE(frozen_thermal_conductivity_vector)(double* const lambda)
 {
     p_mix->frozenThermalConductivityVector(lambda);
+}
+
+//==============================================================================
+double NAME_MANGLE(frozen_thermal_conductivity)()
+{
+    return p_mix->frozenThermalConductivity();
 }
 
 //==============================================================================
@@ -520,8 +563,5 @@ void NAME_MANGLE(convert_ys_to_ye)(
 }
 
 //==============================================================================
-
-
-
 
 
