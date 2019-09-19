@@ -1,0 +1,11 @@
+<mixture name="test3species" mechanism="none">
+    
+    <species>
+        N2 O2 NO
+    </species>
+    
+    <element_compositions default="default">
+        <composition name="default"> O:0.2, N:0.8 </composition>
+    </element_compositions>
+    
+</mixture>
