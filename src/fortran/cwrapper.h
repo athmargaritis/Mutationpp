@@ -43,12 +43,12 @@ extern "C" {
  * @defgroup FortranWrapper Fortran Wrapper
  *
  * This wrapper provides a set of C functions which wrap the Mutation++ library
- * and can be called inside of a Fortran code by simply linking the 
+ * and can be called inside of a Fortran code by simply linking the
  * libmutation_fortran.a library with the fortran code.  There are two things to
  * note about the function declarations shown below.
  *
- * - The functions are named with an underscored appended at the end of each 
- * function. This is done in order to match the name mangling performed by the 
+ * - The functions are named with an underscored appended at the end of each
+ * function. This is done in order to match the name mangling performed by the
  * Fortran compiler.  If your Fortran compiler uses a different name mangling
  * procedure, then you will have to change this in cwrapper.h by altering the
  * NAME_MANGLE macro at the top of the file.
@@ -230,14 +230,14 @@ void NAME_MANGLE(species_densities)(
     double* const rhoi);
 
 /**
- * Equilibrates the mixture at a given temperature, pressure, and 
+ * Equilibrates the mixture at a given temperature, pressure, and
  * elemental composition
  *
  * @param T - mixture temperature
  * @param P - mixture pressure
  * @param X - elemental mole fractions
  */
-void NAME_MANGLE(equilibrate)(double* T, double* P, double* X);
+void NAME_MANGLE(equilibrate)(double* T, double* P);
 
 /**
  * Returns the equilibrium composition of the mixture in species mole fractions
@@ -287,7 +287,7 @@ double NAME_MANGLE(mixture_equilibrium_cp_mass)();
  */
 double NAME_MANGLE(mixture_equilibrium_cv_mass)();
 /**
- * Returns the mixture ratio of specific heats \f$C_p/C_v\f$ which is a unitless 
+ * Returns the mixture ratio of specific heats \f$C_p/C_v\f$ which is a unitless
  * quantity.
  */
 double NAME_MANGLE(mixture_frozen_gamma)();
@@ -298,7 +298,7 @@ double NAME_MANGLE(mixture_frozen_gamma)();
 double NAME_MANGLE(mixture_frozen_sound_speed)();
 
 /**
- * Returns the mixture equilibrium ratio of specific heats \f$C_p/C_v\f$ which is a unitless 
+ * Returns the mixture equilibrium ratio of specific heats \f$C_p/C_v\f$ which is a unitless
  * quantity.
  */
 double NAME_MANGLE(mixture_equilibrium_gamma)();
@@ -351,8 +351,8 @@ double NAME_MANGLE(mixture_e_mass)();
  * Fills the vector wdot with the net species production rates due to the
  * chemical reactions.
  * \f[
- * \dot{\omega}_i = M_{w,i} \sum_j \left( \nu_{ij}^" - \nu_{ij}^{'} \right) 
- *    \left[ k_{f,j} \prod_i C_i^{\nu_{ij}^{'}} - k_{b,j} \prod_i 
+ * \dot{\omega}_i = M_{w,i} \sum_j \left( \nu_{ij}^" - \nu_{ij}^{'} \right)
+ *    \left[ k_{f,j} \prod_i C_i^{\nu_{ij}^{'}} - k_{b,j} \prod_i
  *    C_i^{\nu_{ij}^"} \right] \Theta_{TB}
  * \f]
  *
@@ -375,7 +375,7 @@ void NAME_MANGLE(net_production_rates)(double* const wdot);
 void NAME_MANGLE(species_jacobian_rho)(double* const j);
 
 /**
- * Returns the total number of collision pairs accounted for in the 
+ * Returns the total number of collision pairs accounted for in the
  * collision database.
  */
 int NAME_MANGLE(ncollision_pairs)();
@@ -412,7 +412,7 @@ double NAME_MANGLE(electron_thermal_diffusion_ratios)();
 double NAME_MANGLE(equilibrium_thermal_conductivity)();
 
 /**
- * Returns the heavy particle translational thermal conductivity using the 
+ * Returns the heavy particle translational thermal conductivity using the
  * set algorithm.
  */
 double NAME_MANGLE(heavy_thermal_conductivity)();

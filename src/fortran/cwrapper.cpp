@@ -227,9 +227,9 @@ void NAME_MANGLE(species_densities)(double* const rhoi)
 }
 
 //==============================================================================
-void NAME_MANGLE(equilibrate)(double* T, double* P, double* X = NULL)
+void NAME_MANGLE(equilibrate)(double* T, double* P)
 {
-	p_mix->equilibrate(*T, *P, X);
+	p_mix->equilibrate(*T, *P, NULL);
 }
 
 //==============================================================================
