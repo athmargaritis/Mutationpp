@@ -133,7 +133,7 @@ public:
             p_e[i] = (mp_work[i]  - 1.0)*m_T*RU/m_thermo.speciesMw(i);
     }
 
-    void getEnthalpiesMass(double* const p_h) 
+    void getEnthalpiesMass(double* const p_h)
     {
 		const int ns = m_thermo.nSpecies();
         m_thermo.speciesHOverRT(mp_work);
@@ -142,7 +142,7 @@ public:
             p_h[i] = mp_work[i]*m_T*RU/m_thermo.speciesMw(i);
     }
 
-    void getCpsMass(double* const p_Cp) 
+    void getCpsMass(double* const p_Cp)
     {
         const int ns = m_thermo.nSpecies();
         m_thermo.speciesCpOverR(m_T, mp_work);

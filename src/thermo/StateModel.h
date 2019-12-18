@@ -47,7 +47,7 @@ class Transport;
 /**
  * Base class for all state models.  A mixture state is completely determined
  * when enough thermodynamic values are combined with the mixture composition
- * such that all other mixture quantities can be successfully determined.  For 
+ * such that all other mixture quantities can be successfully determined.  For
  * example, with a simple mixture modeled in thermal equilibrium, the mixture
  * temperature, pressure, and species mole fractions are enough to fully
  * determine all other mixture quantities.
@@ -65,7 +65,7 @@ class StateModel
 public:
 
     typedef const Thermodynamics& ARGS;
-    
+
     /// Returns name of this type.
     static std::string typeName() { return "StateModel"; }
 
@@ -85,7 +85,7 @@ public:
         for (int i = 0; i < thermo.nSpecies(); ++i)
             mp_X[i] = 0.0;
     }
-    
+
     /**
      * Destructor.
      */
@@ -98,7 +98,7 @@ public:
         for (int i = 0; i < m_transfer_models.size(); ++i)
             delete m_transfer_models[i].second;
     }
-    
+
     /**
      * Returns the number of energy equations represented by this StateModel.
      */
@@ -121,7 +121,7 @@ public:
     virtual void setState(
         const double* const p_mass, const double* const p_energy,
         const int vars = 0) = 0;
-    
+
     /**
      * Sets the current magnitude of the magnetic field in teslas.
      */
@@ -142,42 +142,42 @@ public:
     inline double T() const {
         return m_T;
     }
-    
+
     /**
      * Returns the mixture vibrational temperature.
      */
     inline double Tv() const {
         return m_Tv;
     }
-    
+
     /**
      * Returns the mixture electron temperature.
      */
     inline double Te() const {
         return m_Te;
     }
-    
+
     /**
      * Returns the mixture rotational temperature.
      */
     inline double Tr() const {
         return m_Tr;
     }
-    
+
     /**
      * Returns the mixture electronic temperature.
      */
     inline double Tel() const {
         return m_Tel;
     }
-    
+
     /**
      * Returns the mixture static pressure.
      */
     inline double P() const {
         return m_P;
     }
-    
+
     /**
      * @brief Sets the mixture to an equilibrium state at the given temperature and
      * pressure. The elemental mole fractions may also be given, otherwise, the
@@ -216,7 +216,7 @@ public:
     virtual void getEnergiesMass(double* const p_e) {
         throw NotImplementedError("StateModel::getEnergiesMass()");
     }
-    
+
     /**
      * Returns a vector of length n_species times n_energies with each corresponding
 	 * enthalpy per unit mass.  The first n_species values correspond to the total enthalpy
@@ -225,13 +225,13 @@ public:
     virtual void getEnthalpiesMass(double* const p_h) {
         throw NotImplementedError("StateModel::getEnthalpiesMass()");
     }
-    
+
     /**
      * Returns a vector of length n_species times n_energies with each corresponding
 	 * cp per unit mass.  Each n_species vector corresponds to a temperature in the state
-     * model. The first one is associated with the heavy particle translational temperature. 
+     * model. The first one is associated with the heavy particle translational temperature.
      */
-    
+
     virtual void getCpsMass(double* const p_Cp){
         throw NotImplementedError("StateModel::getCpsMass()");
     }
@@ -239,9 +239,9 @@ public:
     /**
      * Returns a vector of length n_species times n_energies with each corresponding
 	 * cp per unit mass.  Each n_species vector corresponds to a temperature in the state
-     * model. The first one is associated with the heavy particle translational temperature. 
+     * model. The first one is associated with the heavy particle translational temperature.
      */
-    
+
     virtual void getCvsMass(double* const p_Cp){
         throw NotImplementedError("StateModel::getCvsMass()");
     }
@@ -259,12 +259,12 @@ public:
     inline const double* const X() const {
         return mp_X;
     }
-    
+
     /**
      * Initializes the energy transfer terms that will be used by each State Model.
      */
     virtual void initializeTransferModel(Mutation::Mixture& mix) {}
-    
+
     /**
      * This function provides the total energy transfer source terms
      *
@@ -280,7 +280,7 @@ public:
             p_omega[m_transfer_models[i].first] +=
                 m_transfer_models[i].second->source();
     }
-    
+
 protected:
     /**
     * @todo add a removeTransferTerm for the case wehen the
@@ -330,9 +330,9 @@ protected:
         double& T,
         double* const p_work,
         const double alpha = 0.0,
-        const double atol = 1.0e-12,
+        const double atol = 1.0e-10,
         const double rtol = 1.0e-12,
-        const int max_iters = 100)
+        const int max_iters = 200)
     {
         using std::cerr;
         const int ns = m_thermo.nSpecies();
@@ -392,7 +392,7 @@ protected:
     const Thermodynamics& m_thermo;
     const int m_nenergy;
     const int m_nmass;
-    
+
     double m_T;
     double m_Tv;
     double m_Tr;
@@ -400,9 +400,9 @@ protected:
     double m_Te;
     double m_P;
     double m_B;
-    
+
     double* mp_X;
-    
+
 
     std::vector< std::pair<int, Mutation::Transfer::TransferModel*> >
         m_transfer_models;
