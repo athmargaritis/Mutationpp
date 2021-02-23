@@ -1,11 +1,11 @@
-rm -rf build install thirdparty/*/build
+rm -rf build install
 
 mkdir build install
+NPROCS=6
 
-python scripts/install_dependencies.py
+INSTALLDIR=${MPP_DIRECTORY}/install
 
-cd build
-cmake .. -DBUILD_FORTRAN_WRAPPER=ON -DCMAKE_INSTALL_PREFIX="~/repositories/mutationpp/install"
-
-make -j install
+cd ${MPP_DIRECTORY}/build
+FC="ftn -ef" cmake -DCMAKE_INSTALL_PREFIX=${INSTALLDIR} .. -DBUILD_FORTRAN_WRAPPER=ON
+make -j${NPROCS} install
 cd ..
